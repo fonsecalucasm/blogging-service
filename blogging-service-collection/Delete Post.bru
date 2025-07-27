@@ -1,0 +1,19 @@
+meta {
+  name: Delete Post
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/posts/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 6d758095-4597-477e-bcad-b7815c8a3e59
+}
+
+settings {
+  encodeUrl: true
+}
