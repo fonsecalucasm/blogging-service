@@ -1,11 +1,23 @@
 import { Module } from "@nestjs/common";
-import { PostsController } from "./posts/posts.controller";
-import { PostsService } from "./posts/posts.service";
-import { PostsRepository } from "./posts/posts.repository";
+import { PostsService } from "./service/posts.service";
+import { MongooseModule } from "@nestjs/mongoose";
+import { PostsController } from "./controller/posts.controller";
+import { Post, PostSchema } from "./schemas/post.schema";
+import { PostRepository } from "./repositories/post.repository";
+import { PostMongooseRepository } from "./repositories/mongoose/post.mongoose.repository";
 
 @Module({
-  imports: [],
+  imports: [
+    MongooseModule.forRoot("mongodb://localhost:27017/blogging"),
+    MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
+  ],
   controllers: [PostsController],
-  providers: [PostsService, PostsRepository],
+  providers: [
+    PostsService,
+    {
+      provide: PostRepository,
+      useClass: PostMongooseRepository,
+    },
+  ],
 })
 export class AppModule {}

@@ -1,0 +1,37 @@
+import { Injectable } from "@nestjs/common";
+import { PostRepository } from "src/repositories/post.repository";
+import { IPost } from "src/schemas/models/post.interface";
+import { Post } from "src/schemas/post.schema";
+
+@Injectable()
+export class PostsService {
+  constructor(private readonly postsRepository: PostRepository) {}
+
+  async getPosts(limit: number, page: number): Promise<IPost[]> {
+    return this.postsRepository.getAllPosts(limit, page);
+  }
+
+  async getPostById(postId: string): Promise<IPost> {
+    const post = await this.postsRepository.getPostById(postId);
+    if (!post) {
+      throw new Error(`Post with id ${postId} not found`);
+    }
+    return post;
+  }
+
+  async createPost(post: IPost): Promise<IPost> {
+    return this.postsRepository.createPost(post);
+  }
+
+  async updatePost(postId: string, post: IPost): Promise<IPost> {
+    const updatedPost = await this.postsRepository.updatePost(postId, post);
+    if (!updatedPost) {
+      throw new Error(`Post with id ${postId} not found`);
+    }
+    return updatedPost;
+  }
+
+  deletePost(postId: string) {
+    this.postsRepository.deletePost(postId);
+  }
+}
