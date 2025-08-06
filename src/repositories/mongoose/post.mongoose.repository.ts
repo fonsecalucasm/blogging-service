@@ -30,4 +30,20 @@ export class PostMongooseRepository implements PostRepository {
     const offset = limit * (page - 1);
     return this.postModel.find().limit(limit).skip(offset).exec();
   }
+
+  async searchPostsByKeyword(
+    keyword: string,
+    limit: number = 10,
+    page: number = 1
+  ): Promise<IPost[]> {
+    const offset = limit * (page - 1);
+    const regex = new RegExp(keyword, "i"); // 'i' para case-insensitive
+    return this.postModel
+      .find({
+        $or: [{ title: { $regex: regex } }, { content: { $regex: regex } }],
+      })
+      .limit(limit)
+      .skip(offset)
+      .exec();
+  }
 }

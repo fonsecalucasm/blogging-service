@@ -1,0 +1,19 @@
+meta {
+  name: Search
+  type: http
+  seq: 6
+}
+
+get {
+  url: http://localhost:3000/posts/search?keyword=luis
+  body: none
+  auth: inherit
+}
+
+params:query {
+  keyword: luis
+}
+
+settings {
+  encodeUrl: true
+}

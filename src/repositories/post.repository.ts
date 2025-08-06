@@ -6,4 +6,9 @@ export abstract class PostRepository {
   abstract updatePost(id: string, post: Partial<IPost>): Promise<IPost | null>;
   abstract deletePost(id: string): Promise<void>;
   abstract getAllPosts(limit: number, page: number): Promise<IPost[]>;
+  abstract searchPostsByKeyword(
+    keyword: string,
+    limit: number,
+    page: number
+  ): Promise<IPost[]>;
 }
