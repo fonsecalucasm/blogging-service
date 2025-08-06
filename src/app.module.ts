@@ -8,7 +8,7 @@ import { PostMongooseRepository } from "./repositories/mongoose/post.mongoose.re
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://localhost:27017/blogging"),
+    MongooseModule.forRoot("mongodb://mongo:27017/blogging"),
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
   ],
   controllers: [PostsController],

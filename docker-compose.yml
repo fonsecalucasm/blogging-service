@@ -1,24 +1,25 @@
-version: "3.8"
-
 services:
   app:
-    build: .
+    build:
+      context: .
     ports:
-      - "3000:3000" # Porta externa:interna
+      - "3000:3000"
     depends_on:
       - mongo
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/blogging
-    volumes:
-      - .:/app
-    command: npm start
-
+    networks:
+      - mynetwork
   mongo:
-    image: mongo:7
+    image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
 
 volumes:
   mongo_data:
