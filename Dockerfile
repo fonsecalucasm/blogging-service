@@ -13,8 +13,12 @@ RUN npm install
 # Copia o restante da aplicação
 COPY . .
 
+RUN npm install -g pnpm
+
+RUN pnpm build
+
 # Expõe a porta usada pela aplicação (altere conforme necessário)
 EXPOSE 3000
 
 # Comando para iniciar a aplicação
-CMD ["npm", "start"]
+CMD ["node", "dist/main"]
