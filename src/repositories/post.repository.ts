@@ -1,4 +1,4 @@
-import { IPost } from "src/schemas/models/post.interface";
+import { IPost } from "../schemas/models/post.interface";
 
 export abstract class PostRepository {
   abstract createPost(post: IPost): Promise<IPost>;

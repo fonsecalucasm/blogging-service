@@ -8,9 +8,9 @@ import {
   Put,
   Query,
 } from "@nestjs/common";
-import { CreatePost, PostResult } from "../../src/commons/dto/post-result.dto";
-import { Post as BlogPost } from "../../src/schemas/post.schema";
-import { PostsService } from "../../src/service/posts.service";
+import { CreatePost, PostResult } from "../commons/dto/post-result.dto";
+import { Post as BlogPost } from "../schemas/post.schema";
+import { PostsService } from "../service/posts.service";
 
 @Controller("posts")
 export class PostsController {

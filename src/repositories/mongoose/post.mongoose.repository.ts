@@ -1,9 +1,9 @@
 import { InjectModel } from "@nestjs/mongoose";
 import { PostRepository } from "../post.repository";
-import { Post } from "src/schemas/post.schema";
+import { Post } from "../../schemas/post.schema";
 import { Model } from "mongoose";
 import { Injectable } from "@nestjs/common";
-import { IPost } from "src/schemas/models/post.interface";
+import { IPost } from "../../schemas/models/post.interface";
 
 @Injectable()
 export class PostMongooseRepository implements PostRepository {
