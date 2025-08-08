@@ -5,10 +5,18 @@ import { PostsController } from "./controller/posts.controller";
 import { Post, PostSchema } from "./schemas/post.schema";
 import { PostRepository } from "./repositories/post.repository";
 import { PostMongooseRepository } from "./repositories/mongoose/post.mongoose.repository";
+import { APP_INTERCEPTOR } from "@nestjs/core";
+import { LoggingInterceptor } from "./commons/interceptors/logging.interceptor";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://mongo:27017/blogging"),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    MongooseModule.forRoot(
+      process.env.DATABASE_URL ?? "mongodb://localhost:27017/blogging"
+    ),
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }]),
   ],
   controllers: [PostsController],
@@ -17,6 +25,10 @@ import { PostMongooseRepository } from "./repositories/mongoose/post.mongoose.re
     {
       provide: PostRepository,
       useClass: PostMongooseRepository,
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
     },
   ],
 })
