@@ -12,6 +12,8 @@ jobs:
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      APPLICATION_PORT: ${{ vars.APPLICATION_PORT }}
 
     steps:
       - name: Checkout Repository
@@ -20,5 +22,5 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker build -t $DOCKER_USERNAME/blogging-service:latest .
+          docker build -t $DOCKER_USERNAME/blogging-service:latest --build-arg DATABASE_URL=$DATABASE_URL --build-arg APPLICATION_PORT=$APPLICATION_PORT .
           docker push $DOCKER_USERNAME/blogging-service:latest
