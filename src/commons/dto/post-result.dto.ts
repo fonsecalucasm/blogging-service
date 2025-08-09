@@ -1,8 +1,14 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IPost } from "src/schemas/models/post.interface";
 
 export class CreatePost {
+  @ApiProperty()
   title: string;
+
+  @ApiProperty()
   content: string;
+
+  @ApiProperty()
   author: string;
 
   constructor(partial: Partial<CreatePost>) {
@@ -21,6 +27,7 @@ export class CreatePost {
 }
 
 export class PostResult extends CreatePost {
+  @ApiProperty()
   id: string;
 
   constructor(partial: Partial<PostResult>) {
